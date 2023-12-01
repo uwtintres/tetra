@@ -104,7 +104,7 @@ public class FcfsSimulation_TopsisVmFiltration {
     
       
 	// filters the top 'percentage' of VMs
-    private ArrayList<Integer> filterTopVms(double d) {
+    private ArrayList<Integer> filterTopVms(double filtrationPercentage) {
     	
     	TopsisHelper th = new TopsisHelper();
         ArrayList<ArrayList<Double>> matrix = new ArrayList<ArrayList<Double>> ();
@@ -113,7 +113,7 @@ public class FcfsSimulation_TopsisVmFiltration {
         
         // mips (beneficial attribute)
         beneficial.add(1);
-        weights.add(0.8);
+        weights.add(0.0);
         // pes number (beneficial attribute)
         beneficial.add(1);
         weights.add(0.0);
@@ -122,7 +122,7 @@ public class FcfsSimulation_TopsisVmFiltration {
         weights.add(0.0);
         //  VM tdp (non-beneficial attribute)
         beneficial.add(0);
-        weights.add(0.2);
+        weights.add(1.0);
         
         // fetch attribute values for all the VMs 
         for (int i = 0; i < vmList.size(); i++)
@@ -162,12 +162,11 @@ public class FcfsSimulation_TopsisVmFiltration {
         // sort the alternatives in non-decreasing order
         Collections.reverse(idxScores);
         ArrayList<Integer> vmIdx = new ArrayList<Integer>();
-        for (int i = 0; i < idxScores.size()*d + 1;i++)
+        for (int i = 0; i < idxScores.size()*filtrationPercentage + 1;i++)
         {
         	vmIdx.add(idxScores.get(i).get(0).intValue());
         }
         
-        //System.out.println(vmIdx.toString());
         return vmIdx;
            	
     }
@@ -176,11 +175,11 @@ public class FcfsSimulation_TopsisVmFiltration {
     private void createAndSubmitVmsAndCloudlets(final DatacenterBroker broker0, Integer numberOfCloudlets) {
     	
     	//create VMs
-        createVM.createVmHelper(readData,vmList,numberOfCreatedVms,vmTdp,2);
+        createVM.createVmHelper(readData,vmList,numberOfCreatedVms,vmTdp,4);
         //System.out.println(vmTdp.toString());
         int vmIndex = 0;
         // filter the top 10% of the VMs using TOPSIS algorithm     
-        ArrayList<Integer> vmIdx = filterTopVms(0.2);
+        ArrayList<Integer> vmIdx = filterTopVms(0.6);
         
         //Allocate cloudlets to the filtered VMs using FCFS algorithm
         for(int i = 0; i < numberOfCloudlets; i++){
@@ -217,7 +216,7 @@ public class FcfsSimulation_TopsisVmFiltration {
     // allocate the VMs to Host using First Fit Policy
     private DatacenterSimple createDatacenter() {
         final var hostList = new ArrayList<Host>();   
-        createDataCenter.createDatacenterHelper(readData,tdp,hostList,2);
+        createDataCenter.createDatacenterHelper(readData,tdp,hostList,4);
         return new DatacenterSimple(simulation, hostList, new VmAllocationPolicyFirstFit());
     }
     
