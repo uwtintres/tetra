@@ -1,5 +1,4 @@
 package simulation;
-import java.lang.Thread;
 
 /**
  * Experiment 1: Compares TOPSIS-based scheduler (with filtration) 
@@ -23,10 +22,10 @@ public class Experiment1 {
 		for (int i = 10; i <= 1000; i += 10 )
 		{
 			// base case - FCFS
-			FcfsSimulation exp1 = new FcfsSimulation(1,i);
+			FirstFitSimulationFiltrationRandom exp1 = new FirstFitSimulationFiltrationRandom(3,i);
 			
 			// optimized scheduler using TOPSIS
-			FcfsSimulation_TopsisVmFiltration exp = new FcfsSimulation_TopsisVmFiltration(1,i);
+			FirstFitSimulation_TopsisVmFiltration exp = new FirstFitSimulation_TopsisVmFiltration(3,i);
 			
 		}			
 	}
