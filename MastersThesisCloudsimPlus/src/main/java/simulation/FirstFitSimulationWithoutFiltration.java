@@ -145,7 +145,7 @@ public class FirstFitSimulationWithoutFiltration {
     // allocate the VMs to Host using First Fit Policy
     private DatacenterSimple createDatacenter() {
         final var hostList = new ArrayList<Host>();   
-        createDataCenter.createDatacenterHelper(readData,tdp,hostList,4 );
+        createDataCenter.createDatacenterHelper(readData,tdp,hostList,4);
         return new DatacenterSimple(simulation, hostList, new VmAllocationPolicyFirstFit());
     }
     

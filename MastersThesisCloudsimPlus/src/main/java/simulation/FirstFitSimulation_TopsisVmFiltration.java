@@ -176,7 +176,7 @@ public class FirstFitSimulation_TopsisVmFiltration {
     private void createAndSubmitVmsAndCloudlets(final DatacenterBroker broker0, Integer numberOfCloudlets) {
     	
     	//create VMs
-        createVM.createVmHelper(readData,vmList,numberOfCreatedVms,vmTdp,1);
+        createVM.createVmHelper(readData,vmList,numberOfCreatedVms,vmTdp,4);
         //System.out.println(vmTdp.toString());
         int vmIndex = 0;
         // filter the top 10% of the VMs using TOPSIS algorithm     
@@ -217,7 +217,7 @@ public class FirstFitSimulation_TopsisVmFiltration {
     // allocate the VMs to Host using First Fit Policy
     private DatacenterSimple createDatacenter() {
         final var hostList = new ArrayList<Host>();   
-        createDataCenter.createDatacenterHelper(readData,tdp,hostList,1);
+        createDataCenter.createDatacenterHelper(readData,tdp,hostList,4);
         return new DatacenterSimple(simulation, hostList, new VmAllocationPolicyFirstFit());
     }
     

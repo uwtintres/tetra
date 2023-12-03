@@ -22,10 +22,10 @@ public class Experiment1 {
 		for (int i = 10; i <= 1000; i += 10 )
 		{
 			// base case - FCFS
-			FirstFitSimulationFiltrationRandom exp1 = new FirstFitSimulationFiltrationRandom(3,i);
+			FirstFitSimulationFiltrationRandom exp1 = new FirstFitSimulationFiltrationRandom(1,i,4,0.4);
 			
 			// optimized scheduler using TOPSIS
-			FirstFitSimulation_TopsisVmFiltration exp = new FirstFitSimulation_TopsisVmFiltration(3,i);
+			FirstFitSimulation_TopsisVmFiltration exp = new FirstFitSimulation_TopsisVmFiltration(1,i,4,0.4);
 			
 		}			
 	}

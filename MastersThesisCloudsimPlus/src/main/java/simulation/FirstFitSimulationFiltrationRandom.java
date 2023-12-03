@@ -43,6 +43,8 @@ public class FirstFitSimulationFiltrationRandom {
     private int numberOfCreatedVms = 0;
     private int numberOfCreatedHosts = 0;
 	private ArrayList<Integer> vmIdx = new ArrayList<Integer>();
+	private int factorVMs;
+	private double postFiltrationPercentage;
 
         
     excelReaderHostVM readData = new excelReaderHostVM();
@@ -52,7 +54,10 @@ public class FirstFitSimulationFiltrationRandom {
     /**
      * constructor where the simulation is built.
      */
-    public FirstFitSimulationFiltrationRandom(Integer experimentNumber,Integer numberOfCloudlets) {
+    public FirstFitSimulationFiltrationRandom(Integer experimentNumber,Integer numberOfCloudlets, int factorVMs, double postFiltrationPercentage) {
+    	
+    	this.factorVMs = factorVMs;
+    	this.postFiltrationPercentage = postFiltrationPercentage;
         System.out.println("Starting " + getClass().getSimpleName());
         simulation = new CloudSimPlus();
 
@@ -125,11 +130,11 @@ public class FirstFitSimulationFiltrationRandom {
     private void createAndSubmitVmsAndCloudlets(final DatacenterBroker broker0, Integer numberOfCloudlets) {
     	
     	//create VMs
-        createVM.createVmHelper(readData,vmList,numberOfCreatedVms,vmTdp,1);
+        createVM.createVmHelper(readData,vmList,numberOfCreatedVms,vmTdp,this.factorVMs);
         //System.out.println(vmTdp.toString());
         int vmIndex = 0;
         // filter the top 10% of the VMs using TOPSIS algorithm     
-        ArrayList<Integer> vmIdx = filterRandomVms(0.4);
+        ArrayList<Integer> vmIdx = filterRandomVms(postFiltrationPercentage);
         
         //Allocate cloudlets to the filtered VMs using FCFS algorithm
         for(int i = 0; i < numberOfCloudlets; i++){
@@ -167,7 +172,7 @@ public class FirstFitSimulationFiltrationRandom {
     // allocate the VMs to Host using First Fit Policy
     private DatacenterSimple createDatacenter() {
         final var hostList = new ArrayList<Host>();   
-        createDataCenter.createDatacenterHelper(readData,tdp,hostList,1);
+        createDataCenter.createDatacenterHelper(readData,tdp,hostList,factorVMs);
         return new DatacenterSimple(simulation, hostList, new VmAllocationPolicyFirstFit());
     }
     
