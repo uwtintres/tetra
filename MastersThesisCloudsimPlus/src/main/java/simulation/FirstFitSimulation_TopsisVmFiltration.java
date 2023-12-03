@@ -52,7 +52,9 @@ public class FirstFitSimulation_TopsisVmFiltration {
     private int numberOfCreatedCloudlets = 0;
     private int numberOfCreatedVms = 0;
 	private ArrayList<Integer> vmIdx = new ArrayList<Integer>();
-    
+	private int factorVMs;
+	private double postFiltrationPercentage;
+	
     excelReaderHostVM readData = new excelReaderHostVM();
     
     private ArrayList<Integer> tdp = new ArrayList<>();
@@ -60,8 +62,13 @@ public class FirstFitSimulation_TopsisVmFiltration {
     /**
      * constructor where the simulation is built.
      */
-    public FirstFitSimulation_TopsisVmFiltration(Integer experimentNumber,int numberOfCloudlets) {
+    public FirstFitSimulation_TopsisVmFiltration(Integer experimentNumber,int numberOfCloudlets, int factorVMs, double postFiltrationPercentage) {
+    	
         System.out.println("Starting " + getClass().getSimpleName());
+        
+    	this.factorVMs = factorVMs;
+    	this.postFiltrationPercentage = postFiltrationPercentage;
+    	
         simulation = new CloudSimPlus();
 
         this.vmList = new ArrayList<>();
