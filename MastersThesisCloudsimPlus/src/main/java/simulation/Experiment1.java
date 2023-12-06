@@ -19,13 +19,20 @@ public class Experiment1 {
 	public static void main(String[] args) throws InterruptedException
 	{
 		
-		for (int i = 10; i <= 1000; i += 10 )
+		for (int i = 10; i <= 10; i += 10 )
 		{
 			// base case - FCFS
-			FirstFitSimulationFiltrationRandom exp1 = new FirstFitSimulationFiltrationRandom(1,i,4,0.4);
+			FirstFitSimulationFiltrationRandom exp = new FirstFitSimulationFiltrationRandom(3,i,1,0.4);
+			
+			// base case 2 - Best Fit
+			BestWorstFitSimulationFiltration exp2 = new BestWorstFitSimulationFiltration(3,i,1,0.4,"best_fit");
+			
+			// base case 3 - Worst Fit
+			BestWorstFitSimulationFiltration exp3 = new BestWorstFitSimulationFiltration(3,i,1,0.4,"worst_fit");
+			
 			
 			// optimized scheduler using TOPSIS
-			FirstFitSimulation_TopsisVmFiltration exp = new FirstFitSimulation_TopsisVmFiltration(1,i,4,0.4);
+			FirstFitSimulation_TopsisVmFiltration exp4 = new FirstFitSimulation_TopsisVmFiltration(3,i,1,0.4);
 			
 		}			
 	}
