@@ -22,10 +22,11 @@ import java.util.List;
 import java.util.Random;
 
 /**
- * A minimal but organized, structured and re-usable CloudSim Plus FCFS 
+ * A minimal but organized, structured and re-usable CloudSim Plus 
  * simulation of i Cloudlets on j VMs which are booted on k Hosts using
- * VmAllocationPolicyFirstFit. The number of cloudlets, VMs and Hosts can 
- * be varied to simulate a real-world data center scenario.
+ * VmAllocationPolicyFirstFit. The simulation uses First Fit scheduler. 
+ * The number of cloudlets, VMs and Hosts can be varied to simulate a 
+ * real-world data center scenario.
  *
  * @author Sri Vibhu Paruchuri
  * 
@@ -55,10 +56,9 @@ public class FirstFitSimulationFiltrationRandom {
      * constructor where the simulation is built.
      */
     public FirstFitSimulationFiltrationRandom(Integer experimentNumber,Integer numberOfCloudlets, int factorVMs, double postFiltrationPercentage) {
-    	
+        System.out.println("Starting " + getClass().getSimpleName());
     	this.factorVMs = factorVMs;
     	this.postFiltrationPercentage = postFiltrationPercentage;
-        System.out.println("Starting " + getClass().getSimpleName());
         simulation = new CloudSimPlus();
 
         this.vmList = new ArrayList<>();
@@ -94,7 +94,7 @@ public class FirstFitSimulationFiltrationRandom {
         //print the total energy cost of the datacenter to execute all the cloudlets
         System.out.printf("Total cost: %.5f ¢ \n",Energy_Cost.get(1));
         
-        TxtOutput.appendToTextFile("src/main/output/DataVisualization/Experiment" + experimentNumber.toString() + "WithoutF.txt", numberOfCloudlets,Energy_Cost.get(0), makespan,Energy_Cost.get(1));
+        TxtOutput.appendToTextFile("src/main/output/DataVisualization/Experiment" + experimentNumber.toString() + "FirstFitScheduler.txt", numberOfCloudlets,Energy_Cost.get(0), makespan,Energy_Cost.get(1));
         
         System.out.println("# of VMs available after filtration: " + Double.toString(vmIdx.size()));
     }
@@ -133,7 +133,7 @@ public class FirstFitSimulationFiltrationRandom {
         createVM.createVmHelper(readData,vmList,numberOfCreatedVms,vmTdp,this.factorVMs);
         //System.out.println(vmTdp.toString());
         int vmIndex = 0;
-        // filter the top 10% of the VMs using TOPSIS algorithm     
+        // filter the VMs to reduce bias against TOPSIS scheduler     
         ArrayList<Integer> vmIdx = filterRandomVms(postFiltrationPercentage);
         
         //Allocate cloudlets to the filtered VMs using FCFS algorithm

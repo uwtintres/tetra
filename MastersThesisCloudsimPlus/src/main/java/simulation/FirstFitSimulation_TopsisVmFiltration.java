@@ -36,9 +36,10 @@ import java.util.List;
 
 /**
  * A minimal but organized, structured and re-usable 
- * simulation of i Cloudlets on j VMs which are booted on k Hosts using
- * VmAllocationPolicyFirstFit. The simulation utilizes a TOPSIS based scheduler. The number of cloudlets, VMs and Hosts can 
- * be varied to simulate a real-world data center scenario.
+ * simulation of i Cloudlets on j VMs which are booted on k Hosts 
+ * using VmAllocationPolicyFirstFit. The simulation utilizes a TOPSIS
+ * based scheduler. The number of cloudlets, VMs and Hosts can be varied
+ * to simulate a real-world data center scenario.
  *
  * @author Sri Vibhu Paruchuri
  * 
@@ -105,7 +106,7 @@ public class FirstFitSimulation_TopsisVmFiltration {
         //print the total energy cost of the datacenter to execute all the cloudlets
         System.out.printf("Total cost: %.5f ¢ \n",Energy_Cost.get(1));
         
-        TxtOutput.appendToTextFile("src/main/output/DataVisualization/Experiment" + experimentNumber.toString() + "WithF.txt", numberOfCloudlets,Energy_Cost.get(0), makespan,Energy_Cost.get(1));
+        TxtOutput.appendToTextFile("src/main/output/DataVisualization/Experiment" + experimentNumber.toString() + "TOPSIS_Scheduler.txt", numberOfCloudlets,Energy_Cost.get(0), makespan,Energy_Cost.get(1));
         
         System.out.println("# of VMs available after filtration: " + Double.toString(vmIdx.size()));
 
@@ -186,7 +187,7 @@ public class FirstFitSimulation_TopsisVmFiltration {
         createVM.createVmHelper(readData,vmList,numberOfCreatedVms,vmTdp,4);
         //System.out.println(vmTdp.toString());
         int vmIndex = 0;
-        // filter the top 10% of the VMs using TOPSIS algorithm     
+        // filter the of the VMs using TOPSIS algoritm    
         ArrayList<Integer> vmIdx = filterTopVms(0.4);
         
         //Allocate cloudlets to the filtered VMs using FCFS algorithm
