@@ -44,7 +44,7 @@ public class BestWorstFitSimulationFiltration {
     private ArrayList<Double> vmTdp;
     private int numberOfCreatedCloudlets = 0;
     private int numberOfCreatedVms = 0;
-    private int numberOfCreatedHosts = 0;
+    //private int numberOfCreatedHosts = 0;
 	private ArrayList<Integer> vmIdx = new ArrayList<Integer>();
 	private int factorVMs;
 	private double postFiltrationPercentage;
@@ -94,13 +94,16 @@ public class BestWorstFitSimulationFiltration {
         
         // print the Makespan
         double makespan = CalculateEnergyMakespanCost.getMakeSpan(cloudletFinishedList);
+        double makespan2 = CalculateEnergyMakespanCost.getUpdatedMakespan(cloudletFinishedList,vmList.size());
         System.out.printf("Makespan : %.5f s \n",makespan);
+        System.out.printf("Makespan Updated : %.5f s \n",makespan2);
         
         //print the total energy cost of the datacenter to execute all the cloudlets
         System.out.printf("Total cost: %.5f ¢ \n",Energy_Cost.get(1));
         
         TxtOutput.appendToTextFile("src/main/output/DataVisualization/Experiment" + experimentNumber.toString() + algorithm +"Scheduler.txt", numberOfCloudlets,Energy_Cost.get(0), makespan,Energy_Cost.get(1));
-        
+        TxtOutput.appendToTextFile("src/main/output/DataVisualization/ExperimentUpdated" + experimentNumber.toString() + algorithm +"Scheduler.txt", numberOfCloudlets,Energy_Cost.get(0), makespan2,Energy_Cost.get(1));
+
         System.out.println("# of VMs available after filtration: " + Double.toString(vmIdx.size()));
         
     }
@@ -131,7 +134,7 @@ public class BestWorstFitSimulationFiltration {
     private void createAndSubmitVmsAndCloudlets(final DatacenterBroker broker0, Integer numberOfCloudlets) {
     	
     	//create VMs
-        createVM.createVmHelper(readData,vmList,numberOfCreatedVms,vmTdp,this.factorVMs);
+        createVM.createVmHelper(readData,vmList,numberOfCreatedVms,vmTdp,factorVMs);
         vmListDuplicate.addAll(vmList);
         //System.out.println(vmTdp.toString());
         int vmIndex = 0;

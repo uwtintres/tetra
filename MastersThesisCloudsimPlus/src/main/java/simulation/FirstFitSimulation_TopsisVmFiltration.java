@@ -101,13 +101,16 @@ public class FirstFitSimulation_TopsisVmFiltration {
         
         // print the Makespan
         double makespan = CalculateEnergyMakespanCost.getMakeSpan(cloudletFinishedList);
+        double makespan2 = CalculateEnergyMakespanCost.getUpdatedMakespan(cloudletFinishedList,vmList.size());
         System.out.printf("Makespan : %.5f s \n",makespan);
+        System.out.printf("Makespan Updated : %.5f s \n",makespan2);
         
         //print the total energy cost of the datacenter to execute all the cloudlets
         System.out.printf("Total cost: %.5f ¢ \n",Energy_Cost.get(1));
         
         TxtOutput.appendToTextFile("src/main/output/DataVisualization/Experiment" + experimentNumber.toString() + "TOPSIS_Scheduler.txt", numberOfCloudlets,Energy_Cost.get(0), makespan,Energy_Cost.get(1));
-        
+        TxtOutput.appendToTextFile("src/main/output/DataVisualization/ExperimentUpdated" + experimentNumber.toString() + "TOPSIS_Scheduler.txt", numberOfCloudlets,Energy_Cost.get(0), makespan2,Energy_Cost.get(1));
+
         System.out.println("# of VMs available after filtration: " + Double.toString(vmIdx.size()));
 
     }
@@ -123,16 +126,16 @@ public class FirstFitSimulation_TopsisVmFiltration {
         
         // mips (beneficial attribute)
         beneficial.add(1);
-        weights.add(0.5);
+        weights.add(0.8);
         // pes number (beneficial attribute)
-        beneficial.add(1);
+        beneficial.add(0);
         weights.add(0.0);
         //RAM capacity (beneficial attribute)
         beneficial.add(1);
         weights.add(0.0);
         //  VM tdp (non-beneficial attribute)
         beneficial.add(0);
-        weights.add(0.5);
+        weights.add(0.2);
         
         // fetch attribute values for all the VMs 
         for (int i = 0; i < vmList.size(); i++)
