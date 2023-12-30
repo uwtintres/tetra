@@ -45,6 +45,46 @@ public class CalculateEnergyMakespanCost {
     }
     
     /**
+     * Calculates the makespan (updated definition).
+     * @param cloudletFinishedList
+     * @param vmListSize
+     * @return The makespan of the current simulation
+     */
+    public static Double getUpdatedMakespan(List<Cloudlet> cloudletFinishedList, Integer vmListSize)
+    {
+    	ArrayList<Double> vmExecutionTimes = new ArrayList<Double>();
+    	
+    	for (int i = 0; i < vmListSize;i++) {
+    		
+    		vmExecutionTimes.add(0.0);
+    	}
+    	
+    	for (int i = 0; i < cloudletFinishedList.size();i++)
+    	{
+    		double startTime = cloudletFinishedList.get(i).getStartTime();
+    		double endTime = cloudletFinishedList.get(i).getFinishTime();
+    		
+    		Integer vmIdx = (int) cloudletFinishedList.get(i).getVm().getId();
+    		Double currentExTime = vmExecutionTimes.get(vmIdx);
+    		vmExecutionTimes.set(vmIdx, currentExTime + (endTime -startTime));
+    		
+    	}
+    	
+    	Double maxVmExecutionTime = Double.MIN_VALUE;
+    	
+    	for (int i = 0; i < vmListSize;i++) {
+    		
+    		if (vmExecutionTimes.get(i) > maxVmExecutionTime) {
+    			System.out.println("Halwa"+i);
+    			maxVmExecutionTime = vmExecutionTimes.get(i);
+    		}
+    	}
+    	
+    	return maxVmExecutionTime;
+    	
+    }
+    
+    /**
      * Calculates the makespan (the duration of time between the earliest start time of any task and the latest finish time of any task in the simulation).
      * 
      * @param cloudletFinishedList An ArrayList of all the cloudlets that have finished executing.
