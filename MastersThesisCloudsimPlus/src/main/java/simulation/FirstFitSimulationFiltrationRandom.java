@@ -97,7 +97,7 @@ public class FirstFitSimulationFiltrationRandom {
         System.out.printf("Total cost: %.5f ¢ \n",Energy_Cost.get(1));
         
         TxtOutput.appendToTextFile("src/main/output/DataVisualization/Experiment" + experimentNumber.toString() + "FirstFitScheduler.txt", numberOfCloudlets,Energy_Cost.get(0), makespan,Energy_Cost.get(1));
-        TxtOutput.appendToTextFile("src/main/output/DataVisualization/ExperimentUpdated" + experimentNumber.toString() + "FirstFitScheduler.txt", numberOfCloudlets,Energy_Cost.get(0), makespan2,Energy_Cost.get(1));
+        TxtOutput.appendToTextFile("src/main/output/DataVisualization/Experiment" + experimentNumber.toString() + "Updated" +  "FirstFitScheduler.txt", numberOfCloudlets,Energy_Cost.get(0), makespan2,Energy_Cost.get(1));
 
         System.out.println("# of VMs available after filtration: " + Double.toString(vmIdx.size()));
     }

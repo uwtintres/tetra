@@ -109,7 +109,7 @@ public class FirstFitSimulation_TopsisVmFiltration {
         System.out.printf("Total cost: %.5f ¢ \n",Energy_Cost.get(1));
         
         TxtOutput.appendToTextFile("src/main/output/DataVisualization/Experiment" + experimentNumber.toString() + "TOPSIS_Scheduler.txt", numberOfCloudlets,Energy_Cost.get(0), makespan,Energy_Cost.get(1));
-        TxtOutput.appendToTextFile("src/main/output/DataVisualization/ExperimentUpdated" + experimentNumber.toString() + "TOPSIS_Scheduler.txt", numberOfCloudlets,Energy_Cost.get(0), makespan2,Energy_Cost.get(1));
+        TxtOutput.appendToTextFile("src/main/output/DataVisualization/Experiment" + experimentNumber.toString() + "Updated"+ "TOPSIS_Scheduler.txt", numberOfCloudlets,Energy_Cost.get(0), makespan2,Energy_Cost.get(1));
 
         System.out.println("# of VMs available after filtration: " + Double.toString(vmIdx.size()));
 
@@ -126,7 +126,7 @@ public class FirstFitSimulation_TopsisVmFiltration {
         
         // mips (beneficial attribute)
         beneficial.add(1);
-        weights.add(0.8);
+        weights.add(1.0);
         // pes number (beneficial attribute)
         beneficial.add(0);
         weights.add(0.0);
@@ -135,7 +135,7 @@ public class FirstFitSimulation_TopsisVmFiltration {
         weights.add(0.0);
         //  VM tdp (non-beneficial attribute)
         beneficial.add(0);
-        weights.add(0.2);
+        weights.add(0.0);
         
         // fetch attribute values for all the VMs 
         for (int i = 0; i < vmList.size(); i++)
