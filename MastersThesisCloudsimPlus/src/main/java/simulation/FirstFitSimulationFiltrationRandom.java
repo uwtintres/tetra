@@ -24,7 +24,7 @@ import java.util.Random;
 /**
  * A minimal but organized, structured and re-usable CloudSim Plus 
  * simulation of i Cloudlets on j VMs which are booted on k Hosts using
- * VmAllocationPolicyFirstFit. The simulation uses First Fit scheduler. 
+ * VmAllocationPolicyFirstFit. The simulation uses First Fit scheduler (FFA). 
  * The number of cloudlets, VMs and Hosts can be varied to simulate a 
  * real-world data center scenario.
  *
@@ -32,10 +32,7 @@ import java.util.Random;
  * 
  */
 public class FirstFitSimulationFiltrationRandom {
-    //private static final long VM_MIPS = HOST_TOTAL_MIPS_CAPACITY/NUMBER_OF_VMS;
-    //private static final long VM_MIPS = 1000;
     private final CloudSimPlus simulation;
-    //private static final int NUMBER_OF_CLOUDLETS = 15;
 	private static final long CLOUDLET_LENGTH = 1000;
     private List<Cloudlet> cloudletList;
     private List<Vm> vmList;
@@ -102,17 +99,6 @@ public class FirstFitSimulationFiltrationRandom {
         System.out.println("# of VMs available after filtration: " + Double.toString(vmIdx.size()));
     }
     
-    /*
-    private void chooseRandom(double numberOfVm) {
-        Random rand = new Random();
-        for (int i = 0; i < numberOfVm; i++) {
-            int randomIndex = rand.nextInt(vmList.size());
-            Vm randomVm= vmList.get(randomIndex);
-            vmList.remove(randomIndex);
-            vmListFiltered.add(randomVm);
-        }
-    }
-    */
     private ArrayList<Integer> filterRandomVms(double filtrationPercentage) {
         Random rand = new Random();
         ArrayList<Integer> idxList = new ArrayList<Integer>();
@@ -136,10 +122,10 @@ public class FirstFitSimulationFiltrationRandom {
         createVM.createVmHelper(readData,vmList,numberOfCreatedVms,vmTdp,factorVMs);
         //System.out.println(vmTdp.toString());
         int vmIndex = 0;
-        // filter the VMs to reduce bias against TOPSIS scheduler     
+        // filter the VMs using the post filtration criteria     
         ArrayList<Integer> vmIdx = filterRandomVms(postFiltrationPercentage);
         
-        //Allocate cloudlets to the filtered VMs using FCFS algorithm
+        //Allocate cloudlets to the filtered VMs
         for(int i = 0; i < numberOfCloudlets; i++){
             final var cloudlet = createCloudlet(broker0);
             while (vmList.get(vmIdx.get(vmIndex)).getPesNumber() < cloudlet.getPesNumber()) {
@@ -161,15 +147,13 @@ public class FirstFitSimulationFiltrationRandom {
     private Cloudlet createCloudlet(DatacenterBroker broker) {
         final long fileSize = 300; //Size (in bytes) before execution
         final long outputSize = 300; //Size (in bytes) after execution
-        //final long  numberOfCpuCores = vm.getPesNumber(); //cloudlet will use all the VM's CPU cores
         final long  numberOfCpuCores = 4;
 
         return new CloudletSimple(numberOfCreatedCloudlets++, CLOUDLET_LENGTH, numberOfCpuCores)
             .setFileSize(fileSize)
             .setOutputSize(outputSize)
             .setUtilizationModelCpu(new UtilizationModelDynamic(1.0));
-            //.setUtilizationModelRam(new UtilizationModelDynamic(0.5))
-            //.setUtilizationModelBw(new UtilizationModelDynamic(0.5));
+
     }
     
     // allocate the VMs to Host using First Fit Policy
