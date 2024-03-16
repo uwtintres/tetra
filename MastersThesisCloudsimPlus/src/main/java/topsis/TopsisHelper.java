@@ -1,7 +1,15 @@
 package topsis;
 import java.util.ArrayList;
 import java.lang.Math;
-
+/**
+ * Class implementing the TOPSIS (Technique for Order of Preference by Similarity to Ideal Solution) algorithm.
+ * 
+ * TOPSIS is a multi-criteria decision-making method used to determine the best alternative among a set of alternatives,
+ * based on their similarity to ideal and anti-ideal solutions.
+ * 
+ * @author Sri Vibhu Paruchuri
+ *
+ */
 public class TopsisHelper {
     
     // computes the denominator for the vector normalization method
