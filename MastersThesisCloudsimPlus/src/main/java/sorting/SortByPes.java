@@ -3,6 +3,11 @@ import java.util.Comparator;
 
 import org.cloudsimplus.vms.Vm;
 
+/**
+ * Comparator class to sort Virtual Machines (VMs) based on their PEs (Processing Elements) number.
+ * @author vibhu
+ *
+ */
 public class SortByPes implements Comparator<Vm> {
     public int compare(Vm a, Vm b)
     {
