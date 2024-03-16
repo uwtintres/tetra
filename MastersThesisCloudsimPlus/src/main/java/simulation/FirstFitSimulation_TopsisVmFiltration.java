@@ -38,7 +38,7 @@ import java.util.List;
  * A minimal but organized, structured and re-usable 
  * simulation of i Cloudlets on j VMs which are booted on k Hosts 
  * using VmAllocationPolicyFirstFit. The simulation utilizes a TOPSIS
- * based scheduler. The number of cloudlets, VMs and Hosts can be varied
+ * based scheduler (FFTA). The number of cloudlets, VMs and Hosts can be varied
  * to simulate a real-world data center scenario.
  *
  * @author Sri Vibhu Paruchuri
@@ -126,8 +126,8 @@ public class FirstFitSimulation_TopsisVmFiltration {
         
         // mips (beneficial attribute)
         beneficial.add(1);
-        weights.add(1.0);
-        // pes number (beneficial attribute)
+        weights.add(0.0);
+        // pes number (non-beneficial attribute)
         beneficial.add(0);
         weights.add(0.0);
         //RAM capacity (beneficial attribute)
@@ -135,7 +135,7 @@ public class FirstFitSimulation_TopsisVmFiltration {
         weights.add(0.0);
         //  VM tdp (non-beneficial attribute)
         beneficial.add(0);
-        weights.add(0.0);
+        weights.add(1.0);
         
         // fetch attribute values for all the VMs 
         for (int i = 0; i < vmList.size(); i++)
@@ -145,7 +145,6 @@ public class FirstFitSimulation_TopsisVmFiltration {
         	tempRow.add((double) vmList.get(i).getPesNumber());
         	tempRow.add((double) vmList.get(i).getRam().getCapacity());
         	tempRow.add(vmTdp.get(i));
-        	//tempRow.add((double) vmList.get(i).getBw().getCapacity());
         	matrix.add(tempRow);
         }
         
@@ -188,12 +187,11 @@ public class FirstFitSimulation_TopsisVmFiltration {
     	
     	//create VMs
         createVM.createVmHelper(readData,vmList,numberOfCreatedVms,vmTdp,factorVMs);
-        //System.out.println(vmTdp.toString());
         int vmIndex = 0;
-        // filter the of the VMs using TOPSIS algoritm    
+        // filter the VMs using the post filtration criteria  
         ArrayList<Integer> vmIdx = filterTopVms(postFiltrationPercentage);
         
-        //Allocate cloudlets to the filtered VMs using FCFS algorithm
+        //Allocate cloudlets to the filtered VMs
         for(int i = 0; i < numberOfCloudlets; i++){
             final var cloudlet = createCloudlet(broker0);
             while (vmList.get(vmIdx.get(vmIndex)).getPesNumber() < cloudlet.getPesNumber()) {
@@ -215,7 +213,6 @@ public class FirstFitSimulation_TopsisVmFiltration {
     private Cloudlet createCloudlet(DatacenterBroker broker) {
         final long fileSize = 300; //Size (in bytes) before execution
         final long outputSize = 300; //Size (in bytes) after execution
-        //final long  numberOfCpuCores = vm.getPesNumber(); //cloudlet will use all the VM's CPU cores
         final long  numberOfCpuCores = 4;
 
         return new CloudletSimple(numberOfCreatedCloudlets++, CLOUDLET_LENGTH, numberOfCpuCores)
