@@ -75,7 +75,6 @@ public class CalculateEnergyMakespanCost {
     	for (int i = 0; i < vmListSize;i++) {
     		
     		if (vmExecutionTimes.get(i) > maxVmExecutionTime) {
-    			System.out.println("Halwa"+i);
     			maxVmExecutionTime = vmExecutionTimes.get(i);
     		}
     	}
