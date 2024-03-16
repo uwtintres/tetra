@@ -5,7 +5,7 @@ import org.cloudsimplus.vms.Vm;
 
 /**
  * Comparator class to sort Virtual Machines (VMs) based on their PEs (Processing Elements) number.
- * @author vibhu
+ * @author Sri Vibhu Paruchuri
  *
  */
 public class SortByPes implements Comparator<Vm> {

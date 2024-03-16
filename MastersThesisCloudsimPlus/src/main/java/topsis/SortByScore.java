@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Comparator;
 /**
  * Comparator class to sort ArrayLists of Doubles based on the second element of each list.
- * @author vibhu
+ * @author Sri Vibhu Paruchuri
  *
  */
 public class SortByScore implements Comparator<ArrayList<Double>> {
