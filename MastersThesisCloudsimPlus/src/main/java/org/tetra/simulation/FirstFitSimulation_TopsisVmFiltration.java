@@ -1,4 +1,4 @@
-package simulation;
+package org.tetra.simulation;
 
 import org.cloudsimplus.allocationpolicies.VmAllocationPolicyFirstFit;
 import org.cloudsimplus.allocationpolicies.VmAllocationPolicySimple;
@@ -17,17 +17,16 @@ import org.cloudsimplus.schedulers.vm.VmSchedulerTimeShared;
 import org.cloudsimplus.utilizationmodels.UtilizationModelDynamic;
 import org.cloudsimplus.vms.Vm;
 import org.cloudsimplus.vms.VmSimple;
-
-import data.models.HostModel;
-import data.models.VmModel;
-import excel.reader.excelReaderHostVM;
-import output.TableBuilderEnergy;
-import output.TxtOutput;
-import topsis.SortByScore;
-import topsis.TopsisHelper;
-import metrics.CalculateEnergyMakespanCost;
-import hardware.createDataCenter;
-import hardware.createVM;
+import org.hardware.createDataCenter;
+import org.hardware.createVM;
+import org.tetra.data.models.HostModel;
+import org.tetra.data.models.VmModel;
+import org.tetra.excel.reader.excelReaderHostVM;
+import org.tetra.metrics.CalculateEnergyMakespanCost;
+import org.tetra.output.TableBuilderEnergy;
+import org.tetra.output.TxtOutput;
+import org.tetra.topsis.SortByScore;
+import org.tetra.topsis.TopsisHelper;
 
 import java.util.ArrayList;
 import java.util.Arrays;

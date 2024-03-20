@@ -1,4 +1,4 @@
-package data.models;
+package org.tetra.data.models;
 
 import java.util.ArrayList;
 

@@ -1,4 +1,4 @@
-package metrics;
+package org.tetra.metrics;
 
 import java.util.ArrayList;
 import java.util.List;

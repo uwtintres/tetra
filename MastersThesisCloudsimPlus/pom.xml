@@ -2,21 +2,20 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>org.cloudsimplus</groupId>
-    <artifactId>cloudsimplus-examples</artifactId>
+    <groupId>org.tetra</groupId>
+    <artifactId>resource-allocation-in-IoT-environments</artifactId>
     <!--
     The module version defines the version of CloudSim Plus to be used.
     This way, it cannot be a version number which doesn't exist for CloudSim Plus.
     -->
     <version>8.5.0</version>
 
-    <name>CloudSim Plus Examples</name>
+    <name>TETRA: Time- and Energy-Aware TOPSIS-based Resource Allocation</name>
     <description>
-        Ready-to-run examples of how to use CloudSim Plus API.
+        Ready-to-run example of simulation in a IoT environment.
         It is an excellent start point to learn how to implement cloud computing
         simulations using CloudSim Plus.
-        All examples of CloudSim Plus exclusive features are inside the org.cloudsimplus.examples package.
-        Each Java class with a main method is a different example.
+        The main experiment class is inside the org.tetra.simulation package along with the resource scheduling algorith classes. 
     </description>
 
     <inceptionYear>2015</inceptionYear>
@@ -33,7 +32,6 @@
             <name>Manoel Campos da Silva Filho</name>
             <email>manoelcampos@gmail.com</email>
             <organization>Instituto Federal de Educação Ciência e Tecnologia do Tocantins (IFTO)</organization>
-            <organizationUrl>http://www.ifto.edu.br</organizationUrl>
         </developer>
     </developers>
 

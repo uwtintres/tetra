@@ -1,4 +1,4 @@
-package hardware;
+package org.hardware;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -6,9 +6,8 @@ import java.util.List;
 import org.cloudsimplus.schedulers.cloudlet.CloudletSchedulerSpaceShared;
 import org.cloudsimplus.vms.Vm;
 import org.cloudsimplus.vms.VmSimple;
-
-import data.models.VmModel;
-import excel.reader.excelReaderHostVM;
+import org.tetra.data.models.VmModel;
+import org.tetra.excel.reader.excelReaderHostVM;
 
 public class createVM {
 	

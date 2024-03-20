@@ -1,4 +1,4 @@
-package simulation;
+package org.tetra.simulation;
 
 /**
  * Experiment: Algorithms: FFA + BFA + GFA + FFTA

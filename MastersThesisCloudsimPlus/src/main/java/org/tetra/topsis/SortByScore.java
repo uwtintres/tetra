@@ -1,4 +1,4 @@
-package topsis;
+package org.tetra.topsis;
 
 import java.util.ArrayList;
 import java.util.Comparator;

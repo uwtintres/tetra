@@ -1,4 +1,4 @@
-package simulation;
+package org.tetra.simulation;
 
 import org.cloudsimplus.allocationpolicies.VmAllocationPolicyFirstFit;
 import org.cloudsimplus.brokers.DatacenterBroker;
@@ -10,13 +10,13 @@ import org.cloudsimplus.datacenters.DatacenterSimple;
 import org.cloudsimplus.hosts.Host;
 import org.cloudsimplus.utilizationmodels.UtilizationModelDynamic;
 import org.cloudsimplus.vms.Vm;
-import excel.reader.excelReaderHostVM;
-import output.TableBuilderEnergy;
-import output.TxtOutput;
-import sorting.SortByPes;
-import metrics.CalculateEnergyMakespanCost;
-import hardware.createDataCenter;
-import hardware.createVM;
+import org.hardware.createDataCenter;
+import org.hardware.createVM;
+import org.tetra.excel.reader.excelReaderHostVM;
+import org.tetra.metrics.CalculateEnergyMakespanCost;
+import org.tetra.output.TableBuilderEnergy;
+import org.tetra.output.TxtOutput;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -25,27 +25,25 @@ import java.util.Random;
 /**
  * A minimal but organized, structured and re-usable CloudSim Plus 
  * simulation of i Cloudlets on j VMs which are booted on k Hosts using
- * VmAllocationPolicyFirstFit. The simulation uses either BFA or GFA 
- * scheduler. The number of cloudlets, VMs and Hosts can be varied to simulate 
- * a real-world data center scenario.
+ * VmAllocationPolicyFirstFit. The simulation uses First Fit scheduler (FFA). 
+ * The number of cloudlets, VMs and Hosts can be varied to simulate a 
+ * real-world data center scenario.
  *
  * @author Sri Vibhu Paruchuri
  * 
  */
-public class BestFitGreedySimulationFiltration {
-
+public class FirstFitSimulationFiltrationRandom {
     private final CloudSimPlus simulation;
 	private static final long CLOUDLET_LENGTH = 1000;
     private List<Cloudlet> cloudletList;
     private List<Vm> vmList;
-    private List<Vm> vmListDuplicate;
     private ArrayList<Double> vmTdp;
     private int numberOfCreatedCloudlets = 0;
     private int numberOfCreatedVms = 0;
+    private int numberOfCreatedHosts = 0;
 	private ArrayList<Integer> vmIdx = new ArrayList<Integer>();
 	private int factorVMs;
 	private double postFiltrationPercentage;
-	private String algorithm;
 
         
     excelReaderHostVM readData = new excelReaderHostVM();
@@ -55,16 +53,14 @@ public class BestFitGreedySimulationFiltration {
     /**
      * constructor where the simulation is built.
      */
-    public BestFitGreedySimulationFiltration(Integer experimentNumber,Integer numberOfCloudlets, int factorVMs, double postFiltrationPercentage,String algorithm) {
+    public FirstFitSimulationFiltrationRandom(Integer experimentNumber,Integer numberOfCloudlets, int factorVMs, double postFiltrationPercentage) {
         System.out.println("Starting " + getClass().getSimpleName());
     	this.factorVMs = factorVMs;
     	this.postFiltrationPercentage = postFiltrationPercentage;
-    	this.algorithm = algorithm;
         simulation = new CloudSimPlus();
 
         this.vmList = new ArrayList<>();
         this.vmTdp = new ArrayList<>();
-        this.vmListDuplicate = new ArrayList<>();
         this.cloudletList = new ArrayList<>();
 
         final var datacenter0 = createDatacenter();
@@ -98,34 +94,25 @@ public class BestFitGreedySimulationFiltration {
         //print the total energy cost of the datacenter to execute all the cloudlets
         System.out.printf("Total cost: %.5f ¢ \n",Energy_Cost.get(1));
         
-        TxtOutput.appendToTextFile("src/main/output/DataVisualization/Experiment" + experimentNumber.toString() + algorithm +"Scheduler.txt", numberOfCloudlets,Energy_Cost.get(0), makespan,Energy_Cost.get(1));
-        TxtOutput.appendToTextFile("src/main/output/DataVisualization/Experiment" + experimentNumber.toString() + "Updated" + algorithm +"Scheduler.txt", numberOfCloudlets,Energy_Cost.get(0), makespan2,Energy_Cost.get(1));
+        TxtOutput.appendToTextFile("src/main/output/DataVisualization/Experiment" + experimentNumber.toString() + "FirstFitScheduler.txt", numberOfCloudlets,Energy_Cost.get(0), makespan,Energy_Cost.get(1));
+        TxtOutput.appendToTextFile("src/main/output/DataVisualization/Experiment" + experimentNumber.toString() + "Updated" +  "FirstFitScheduler.txt", numberOfCloudlets,Energy_Cost.get(0), makespan2,Energy_Cost.get(1));
 
         System.out.println("# of VMs available after filtration: " + Double.toString(vmIdx.size()));
-        
     }
     
-    // sort the VMs on the number of CPU cores based on the algorithm
-    private void sortHelper() {
-    	// BFA: non-decreasing order
-    	if (algorithm.equals("best_fit")) {
-    		Collections.sort(vmListDuplicate,new SortByPes());
-    	}
-    	// GFA: decreasing order
-    	else if(algorithm.equals("greedy")) {
-    		Collections.sort(vmListDuplicate,new SortByPes());
-    		Collections.reverse(vmListDuplicate);
-    	}
-    	else {
-    		// throw exception
-    	}
-    }
-    private ArrayList<Integer> sortFilterVms(double filtrationPercentage) {
-    	sortHelper();
-        for (int i = 0; i < vmList.size()*filtrationPercentage;i++)
+    private ArrayList<Integer> filterRandomVms(double filtrationPercentage) {
+        Random rand = new Random();
+        ArrayList<Integer> idxList = new ArrayList<Integer>();
+        for (int i = 0 ; i < vmList.size(); i ++)
         {
-        	vmIdx.add((int) vmListDuplicate.get(i).getId());
-        	
+        	idxList.add(i);
+        }
+    	double numberOfVms = vmList.size()*filtrationPercentage;
+        for (int i = 0; i < numberOfVms; i++) {
+            int randomIndex = rand.nextInt(idxList.size());
+            int randomElement = idxList.get(randomIndex);
+            idxList.remove(randomIndex);
+            vmIdx.add(randomElement);
         }
     	return vmIdx;
     }
@@ -134,12 +121,12 @@ public class BestFitGreedySimulationFiltration {
     	
     	//create VMs
         createVM.createVmHelper(readData,vmList,numberOfCreatedVms,vmTdp,factorVMs);
-        vmListDuplicate.addAll(vmList);
+        //System.out.println(vmTdp.toString());
         int vmIndex = 0;
         // filter the VMs using the post filtration criteria     
-        ArrayList<Integer> vmIdx = sortFilterVms(postFiltrationPercentage);
+        ArrayList<Integer> vmIdx = filterRandomVms(postFiltrationPercentage);
         
-        //Allocate the cloudlets to the filtered VMs
+        //Allocate cloudlets to the filtered VMs
         for(int i = 0; i < numberOfCloudlets; i++){
             final var cloudlet = createCloudlet(broker0);
             while (vmList.get(vmIdx.get(vmIndex)).getPesNumber() < cloudlet.getPesNumber()) {
@@ -167,6 +154,7 @@ public class BestFitGreedySimulationFiltration {
             .setFileSize(fileSize)
             .setOutputSize(outputSize)
             .setUtilizationModelCpu(new UtilizationModelDynamic(1.0));
+
     }
     
     // allocate the VMs to Host using First Fit Policy

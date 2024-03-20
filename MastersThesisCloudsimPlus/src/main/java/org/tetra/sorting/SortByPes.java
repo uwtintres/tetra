@@ -1,4 +1,4 @@
-package sorting;
+package org.tetra.sorting;
 import java.util.Comparator;
 
 import org.cloudsimplus.vms.Vm;

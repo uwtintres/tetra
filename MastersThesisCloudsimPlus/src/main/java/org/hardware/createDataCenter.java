@@ -1,4 +1,4 @@
-package hardware;
+package org.hardware;
 
 import java.util.ArrayList;
 
@@ -7,9 +7,8 @@ import org.cloudsimplus.hosts.HostSimple;
 import org.cloudsimplus.resources.Pe;
 import org.cloudsimplus.resources.PeSimple;
 import org.cloudsimplus.schedulers.vm.VmSchedulerTimeShared;
-
-import data.models.HostModel;
-import excel.reader.excelReaderHostVM;
+import org.tetra.data.models.HostModel;
+import org.tetra.excel.reader.excelReaderHostVM;
 
 public class createDataCenter {
 	

@@ -1,4 +1,4 @@
-package excel.reader;
+package org.tetra.excel.reader;
 
 import java.io.FileInputStream;
 import java.util.Iterator;
@@ -8,9 +8,8 @@ import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
-
-import data.models.HostModel;
-import data.models.VmModel;
+import org.tetra.data.models.HostModel;
+import org.tetra.data.models.VmModel;
 
 /**
  * Organized reader class to read VM and Host data from excel files
