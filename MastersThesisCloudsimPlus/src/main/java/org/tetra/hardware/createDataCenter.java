@@ -1,4 +1,4 @@
-package org.hardware;
+package org.tetra.hardware;
 
 import java.util.ArrayList;
 

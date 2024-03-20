@@ -9,7 +9,7 @@
 
     <name>TETRA: Time- and Energy-Aware TOPSIS-based Resource Allocation</name>
     <description>
-        Ready-to-run example of simulation in a IoT environment.
+        Ready-to-run example of resource allocaiton simulation in a IoT environment.
         It is an excellent start point to learn how to implement resource allocation simulations.
         The main experiment class is inside the org.tetra.simulation package along with the resource scheduling algorith classes. 
     </description>
