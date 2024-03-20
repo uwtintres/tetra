@@ -4,21 +4,17 @@
 
     <groupId>org.tetra</groupId>
     <artifactId>resource-allocation-in-IoT-environments</artifactId>
-    <!--
-    The module version defines the version of CloudSim Plus to be used.
-    This way, it cannot be a version number which doesn't exist for CloudSim Plus.
-    -->
-    <version>8.5.0</version>
+
+    <version>1.0.0</version>
 
     <name>TETRA: Time- and Energy-Aware TOPSIS-based Resource Allocation</name>
     <description>
         Ready-to-run example of simulation in a IoT environment.
-        It is an excellent start point to learn how to implement cloud computing
-        simulations using CloudSim Plus.
+        It is an excellent start point to learn how to implement resource allocation simulations.
         The main experiment class is inside the org.tetra.simulation package along with the resource scheduling algorith classes. 
     </description>
 
-    <inceptionYear>2015</inceptionYear>
+    <inceptionYear>2024</inceptionYear>
 
     <licenses>
         <license>
@@ -29,23 +25,11 @@
 
     <developers>
         <developer>
-            <name>Manoel Campos da Silva Filho</name>
-            <email>manoelcampos@gmail.com</email>
-            <organization>Instituto Federal de Educação Ciência e Tecnologia do Tocantins (IFTO)</organization>
+            <name>Sri Vibhu Paruchuri</name>
+            <email>svp4@uw.edu</email>
+            <organization>University of Washington</organization>
         </developer>
     </developers>
-
-    <scm>
-        <connection>scm:git:git@github.com:cloudsimplus/cloudsimplus-examples.git</connection>
-        <developerConnection>scm:git:git@github.com:cloudsimplus/cloudsimplus-examples.git</developerConnection>
-        <url>git@github.com:cloudsimplus/cloudsimplus-examples.git</url>
-    </scm>
-
-    <issueManagement>
-        <url>https://github.com/cloudsimplus/cloudsimplus-examples/issues</url>
-        <system>GitHub Issues</system>
-    </issueManagement>
-
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <license-maven-plugin.version>3.0</license-maven-plugin.version>
@@ -138,7 +122,7 @@
         <dependency>
             <groupId>org.cloudsimplus</groupId>
             <artifactId>cloudsimplus</artifactId>
-            <version>${project.version}</version>
+            <version>8.5.0</version>
         </dependency>
         <dependency>
             <groupId>ch.qos.logback</groupId>
