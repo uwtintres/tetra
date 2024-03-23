@@ -29,7 +29,7 @@ public class Experiment1 {
 			// Experiment 1 - LRC - BFA
 			BestFitGreedySimulationFiltration exp2 = new BestFitGreedySimulationFiltration(1,i,4,0.6,"best_fit");
 			
-			// Experiment 1 - LRC - GFA
+			// Experiment 1 - LRC - GA
 			BestFitGreedySimulationFiltration exp3 = new BestFitGreedySimulationFiltration(1,i,4,0.6,"greedy");
 			
 			// Experiment 1 - LRC - FFTA
@@ -41,7 +41,7 @@ public class Experiment1 {
 			// Experiment 2 - MRC - BFA
 			BestFitGreedySimulationFiltration exp6 = new BestFitGreedySimulationFiltration(2,i,2,0.6,"best_fit");
 			
-			// Experiment 2 - MRC - GFA
+			// Experiment 2 - MRC - GA
 			BestFitGreedySimulationFiltration exp7 = new BestFitGreedySimulationFiltration(2,i,2,0.6,"greedy");
 			
 			// Experiment 2 - MRC - FFTA
@@ -53,7 +53,7 @@ public class Experiment1 {
 			// Experiment 3 - HRC - BFA
 			BestFitGreedySimulationFiltration exp10 = new BestFitGreedySimulationFiltration(3,i,1,0.6,"best_fit");
 			
-			// Experiment 3 - HRC - GFA
+			// Experiment 3 - HRC - GA
 			BestFitGreedySimulationFiltration exp11 = new BestFitGreedySimulationFiltration(3,i,1,0.6,"greedy");
 			
 			// Experiment 3 - HRC - FFTA
