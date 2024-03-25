@@ -1,0 +1,160 @@
+<?xml version="1.0"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>org.tetra</groupId>
+    <artifactId>resource-allocation-in-IoT-environments</artifactId>
+
+    <version>1.0.0</version>
+
+    <name>TETRA: Time- and Energy-Aware TOPSIS-based Resource Allocation</name>
+    <description>
+        Ready-to-run example of resource allocaiton simulation in a IoT environment.
+        It is an excellent start point to learn how to implement resource allocation simulations.
+        The main experiment class is inside the org.tetra.simulation package along with the resource scheduling algorith classes. 
+    </description>
+
+    <inceptionYear>2024</inceptionYear>
+
+    <licenses>
+        <license>
+            <name>GPLv3</name>
+            <url>http://www.gnu.org/licenses/gpl-3.0.txt</url>
+        </license>
+    </licenses>
+
+    <developers>
+        <developer>
+            <name>Sri Vibhu Paruchuri</name>
+            <email>svp4@uw.edu</email>
+            <organization>University of Washington</organization>
+        </developer>
+    </developers>
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <license-maven-plugin.version>3.0</license-maven-plugin.version>
+        <!-- License file to be used by the com.mycila.license-maven-plugin -->
+        <copyrightfile>../COPYRIGHT</copyrightfile>
+    </properties>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.10.1</version>
+                <configuration>
+                    <release>17</release>
+                </configuration>
+            </plugin>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-jar-plugin</artifactId>
+				<version>3.3.0</version>
+				<configuration>
+					<archive>
+						<manifest>
+							<!-- Adds dependencies to classpath into the manifest file inside the jar !-->
+							<addClasspath>true</addClasspath>
+
+							<!-- Defines that the dependencies will follow the same
+							 hierarchical directory structure of a maven repository !-->
+							<classpathLayoutType>repository</classpathLayoutType>
+
+							<!-- Defines the root folder where the dependencies are.
+							 In this case is the root of the local maven repository. !-->
+							<classpathPrefix>${user.home}/.m2/repository/</classpathPrefix>
+						</manifest>
+					</archive>
+				</configuration>
+			</plugin>
+
+            <!-- Creates an "uber jar" that includes all external dependencies
+            inside it. This way, the jar can be run directly in any
+            computer with a regular JVM installed. -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-shade-plugin</artifactId>
+				<version>3.2.4</version>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>shade</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <!-- Keep the original jar file and generate a new shaded jar (the uber jar) -->
+                    <shadedArtifactAttached>true</shadedArtifactAttached>
+                    <!-- The suffix to add to the shaded jar -->
+                    <shadedClassifierName>with-dependencies</shadedClassifierName>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>com.mycila</groupId>
+                <artifactId>license-maven-plugin</artifactId>
+                <version>${license-maven-plugin.version}</version>
+                <configuration>
+                    <header>${copyrightfile}</header>
+                    <mapping>
+                        <java>SLASHSTAR_STYLE</java>
+                    </mapping>
+
+                    <strictCheck>true</strictCheck>
+                    <failIfMissing>false</failIfMissing>
+                    <excludes>
+                        <exclude>**/src/main/resources/**</exclude>
+                        <exclude>**/src/main/java/org/cloudbus/**</exclude>
+                        <exclude>**/*.md</exclude>
+                        <exclude>**/*.xml</exclude>
+                        <exclude>**/*.brite</exclude>
+                        <exclude>**/package-info.java</exclude>
+                    </excludes>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.cloudsimplus</groupId>
+            <artifactId>cloudsimplus</artifactId>
+            <version>8.5.0</version>
+        </dependency>
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-core</artifactId>
+            <version>1.4.5</version>
+        </dependency>
+        <dependency>
+    		<groupId>org.apache.poi</groupId>
+    		<artifactId>poi</artifactId>
+    		<version>3.11</version>
+		</dependency>
+		<dependency>
+    		<groupId>org.apache.poi</groupId>
+    		<artifactId>poi-ooxml</artifactId>
+    		<version>3.11</version>
+		</dependency>
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+			<version>1.18.32</version>
+			<scope>provided</scope>
+		</dependency>
+        <dependency>
+            <!-- Automatically includes slf4j-api 2.0 -->
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-classic</artifactId>
+            <version>1.4.5</version>
+        </dependency>
+        <dependency>
+  				<groupId>org.slf4j</groupId>
+ 				<artifactId>slf4j-simple</artifactId>
+  				<version>1.7.21</version>
+		</dependency>
+    </dependencies>
+</project>
